@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion } from "motion";
 
 interface RatingRingProps {
   selected: number | null;

@@ -1,7 +1,7 @@
 "use client";
 
 import { useSession, signOut } from "next-auth/react";
-import { motion } from "motion/react";
+import { motion } from "motion";
 import Link from "next/link";
 
 interface ProfileDropdownProps {

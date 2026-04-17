@@ -12,7 +12,7 @@ export default async function AdminLayout({
     redirect("/login");
   }
 
-  if (session.user.role !== "admin") {
+  if (session?.user?.role !== "admin") {
     // If logged in but not admin, kick them back to home
     redirect("/");
   }
