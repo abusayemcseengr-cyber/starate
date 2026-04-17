@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import Image from "next/image";
 import { GlassPanel } from "@/components/ui/GlassPanel";
 import { StatsGrid } from "@/components/about/StatsGrid";
 import { 
@@ -160,10 +161,17 @@ export default function AboutPage() {
                background: "rgba(102, 126, 234, 0.04)", border: "1px solid rgba(102, 126, 234, 0.2)" 
              }}>
                 <div className="leader-flex">
-                  <div className="leader-image-side">
-                    <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "white" }}>
-                      <Code size={120} style={{ opacity: 0.3 }} />
-                      <div style={{ position: "absolute", bottom: 20, left: 20 }}>
+                  <div className="leader-image-side" style={{ overflow: 'hidden', borderRadius: '14px 0 0 14px' }}>
+                    <Image 
+                      src="https://i.postimg.cc/gkPX8xG2/IMG-0490.avif" 
+                      alt="Abu Sayem" 
+                      fill
+                      unoptimized
+                      style={{ objectFit: "cover" }} 
+                    />
+                    <div style={{ position: "absolute", width: "100%", height: "100%", background: "linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%)" }} />
+                    <div style={{ position: "absolute", width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "white" }}>
+                      <div style={{ position: "absolute", bottom: 20, left: 20, zIndex: 1 }}>
                         <h4 style={{ fontSize: "1.5rem", fontWeight: 900, marginBottom: 0 }}>ABU SAYEM</h4>
                         <p style={{ fontSize: "0.9rem", fontWeight: 700, opacity: 0.8 }}>FOUNDER & LEAD DEVELOPER</p>
                       </div>
@@ -180,9 +188,9 @@ export default function AboutPage() {
                       Full Stack Development Lead
                     </h3>
                     <p style={{ color: "var(--text-secondary)", lineHeight: 1.8, fontSize: "1.05rem" }}>
-                      I am Abu Sayem, the lead visionary and full-stack architect behind StarRate. My mission was to merge complex data structures with a premium, motion-driven user interface. I engineered the core authentication, database schemas, and the unique aurora-glass design system used throughout this platform.
+                      I am Abu Sayem, from Section 65_H, the lead visionary and full-stack architect behind StarRate. My mission was to merge complex data structures with a premium, motion-driven user interface. I engineered the core authentication, database schemas, and the unique aurora-glass design system used throughout this platform.
                     </p>
-                    <div style={{ display: "flex", gap: 12, marginTop: "var(--space-xl)" }}>
+                    <div style={{ display: "flex", gap: 12, marginTop: "var(--space-xl)", flexWrap: "wrap" }}>
                       <span style={{ fontSize: "0.8rem", fontWeight: 800, padding: "6px 14px", borderRadius: 10, background: "rgba(0,0,0,0.05)" }}>NEXT.JS 14</span>
                       <span style={{ fontSize: "0.8rem", fontWeight: 800, padding: "6px 14px", borderRadius: 10, background: "rgba(0,0,0,0.05)" }}>TYPESCRIPT</span>
                       <span style={{ fontSize: "0.8rem", fontWeight: 800, padding: "6px 14px", borderRadius: 10, background: "rgba(0,0,0,0.05)" }}>PRISMA</span>
