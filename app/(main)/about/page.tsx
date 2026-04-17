@@ -1,91 +1,240 @@
+"use client";
+
+import { motion } from "motion/react";
 import { GlassPanel } from "@/components/ui/GlassPanel";
 import { StatsGrid } from "@/components/about/StatsGrid";
+import { 
+  Code, 
+  Monitor, 
+  Cpu, 
+  ShieldCheck, 
+  Sparkles,
+  Command,
+  Layout
+} from "lucide-react";
 
+// Team Members Mapping
 const teamMembers = [
-  { name: "Aurora Team",  role: "Platform Design",      emoji: "🎨" },
-  { name: "Data Engine",  role: "Rankings & Analytics", emoji: "📊" },
-  { name: "Auth Guard",   role: "Security & Privacy",   emoji: "🔒" },
+  { name: "Team Member 1", role: "Frontend Developer", info: "Focused on creating fluid CSS animations and responsive layouts.", icon: <Sparkles size={20} /> },
+  { name: "Team Member 2", role: "Backend Architect", info: "Managing database integrity and high-performance API endpoints.", icon: <Cpu size={20} /> },
+  { name: "Team Member 3", role: "UI/UX Designer", info: "Ensures the StarRate experience is intuitive and visually stunning.", icon: <Monitor size={20} /> },
+  { name: "Team Member 4", role: "QA Engineer", info: "Rigorous testing to maintain platform stability and performance.", icon: <ShieldCheck size={20} /> },
 ];
 
 export default function AboutPage() {
-  return (
-    <div style={{ minHeight: "calc(100vh - var(--navbar-height))", padding: "var(--space-2xl) var(--space-lg)", maxWidth: 860, margin: "0 auto" }}>
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: { staggerChildren: 0.15 }
+    }
+  };
 
-      {/* ── Hero ── */}
-      <div style={{ textAlign: "center", marginBottom: "var(--space-3xl)", padding: "var(--space-3xl) 0" }}>
-        <div style={{ fontSize: "4rem", marginBottom: "var(--space-md)" }}>⭐</div>
-        <h1 style={{
-          fontFamily: "var(--font-heading)",
-          fontSize: "clamp(2rem,5vw,3.2rem)",
-          fontWeight: 900,
-          background: "var(--aurora-gradient)",
-          backgroundClip: "text", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-          lineHeight: 1.1, marginBottom: "var(--space-lg)",
-        }}>
-          About StarRate
-        </h1>
-        <p style={{ fontSize: "1.1rem", color: "var(--text-secondary)", maxWidth: 560, margin: "0 auto", lineHeight: 1.7 }}>
-          StarRate is a beautiful, interactive celebrity ranking platform where your
-          opinion shapes the global leaderboard. Rate, discover, and compare the stars
-          you love — all in a stunning Aurora Glass experience.
-        </p>
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as any } }
+  };
+
+  return (
+    <div style={{ 
+      minHeight: "100vh", 
+      padding: "var(--space-3xl) var(--space-lg)", 
+      maxWidth: 1200, 
+      margin: "0 auto",
+      position: "relative"
+    }}>
+      <style>{`
+        .responsive-teacher-panel {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: var(--space-xl);
+          text-align: center;
+        }
+        @media (min-width: 768px) {
+          .responsive-teacher-panel {
+            flex-direction: row;
+            text-align: left;
+          }
+        }
+        .leader-flex {
+          display: flex;
+          flex-wrap: wrap;
+        }
+        .leader-image-side {
+          flex: 1 1 300px;
+          position: relative;
+          min-height: 350px;
+          background: var(--aurora-gradient);
+        }
+        .leader-content-side {
+          flex: 1 1 400px;
+          padding: var(--space-2xl);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          text-align: left;
+        }
+      `}</style>
+      
+      {/* ── Background Decoration ── */}
+      <div style={{
+        position: "absolute", top: -100, right: -100, width: 400, height: 400,
+        background: "radial-gradient(circle, rgba(102, 126, 234, 0.08) 0%, transparent 70%)",
+        zIndex: -1, pointerEvents: "none"
+      }} />
+
+      {/* ── Header ── */}
+      <div style={{ textAlign: "center", marginBottom: "var(--space-3xl)" }}>
+        <motion.div
+           initial={{ opacity: 0, scale: 0.8 }}
+           animate={{ opacity: 1, scale: 1 }}
+           transition={{ duration: 0.8 }}
+        >
+          <h1 style={{
+            fontFamily: "var(--font-heading)",
+            fontSize: "clamp(2.5rem, 8vw, 4.5rem)",
+            fontWeight: 900,
+            background: "var(--aurora-gradient)",
+            WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
+            lineHeight: 1, marginBottom: "var(--space-md)"
+          }}>
+            Project Intel
+          </h1>
+          <p style={{ fontSize: "1.2rem", color: "var(--text-secondary)", maxWidth: 600, margin: "0 auto", lineHeight: 1.6 }}>
+            The collective force behind the world&apos;s most beautiful ranking platform.
+          </p>
+        </motion.div>
       </div>
 
-      {/* ── Live Stats (client component) ── */}
       <StatsGrid />
 
-      {/* ── Mission ── */}
-      <GlassPanel radius="xl" glow glowColor="rgba(102,126,234,0.14)" padding="var(--space-2xl)" style={{ marginBottom: "var(--space-2xl)" }}>
-        <h2 style={{
-          fontFamily: "var(--font-heading)", fontSize: "1.5rem", fontWeight: 800,
-          color: "var(--text-primary)", marginBottom: "var(--space-md)",
-        }}>🎯 Our Mission</h2>
-        <p style={{ color: "var(--text-secondary)", lineHeight: 1.8, fontSize: "0.95rem" }}>
-          Celebrity culture is everywhere — but the conversation is scattered across
-          social media with no central place to meaningfully rank and compare. StarRate
-          brings that experience into a single, beautifully designed platform.
-          <br /><br />
-          We believe in transparency, privacy, and great design. No algorithms
-          manipulating what you see. No ads. Just pure, honest ratings from real fans.
-        </p>
-      </GlassPanel>
+      <motion.div 
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.1 }}
+        style={{ display: "flex", flexDirection: "column", gap: "var(--space-2xl)" }}
+      >
+        {/* Tier 1: Course Teacher */}
+        <motion.div variants={itemVariants}>
+          <div style={{ textAlign: "center", marginBottom: "var(--space-xl)" }}>
+             <h2 style={{ fontSize: "0.85rem", fontWeight: 800, color: "var(--aurora-indigo)", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "var(--space-md)" }}>
+               Project Supervisor
+             </h2>
+             <GlassPanel radius="2xl" glow padding="var(--space-2xl)" style={{ maxWidth: 900, margin: "0 auto", border: "1.5px solid rgba(255,255,255,0.6)" }}>
+                <div className="responsive-teacher-panel">
+                  <div style={{ 
+                    width: 140, height: 140, borderRadius: "24%", background: "rgba(0,0,0,0.03)", 
+                    position: "relative", overflow: "hidden", border: "4px solid white", boxShadow: "0 10px 30px rgba(0,0,0,0.05)",
+                    flexShrink: 0
+                  }}>
+                    <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--aurora-gradient)", color: "white" }}>
+                      <Command size={60} />
+                    </div>
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "2.2rem", fontWeight: 900, marginBottom: 4 }}>
+                      Course Teacher Name
+                    </h3>
+                    <p style={{ color: "var(--aurora-indigo)", fontWeight: 700, fontSize: "1.1rem", marginBottom: "var(--space-md)" }}>
+                      Faculty Supervisor & Project Guide
+                    </p>
+                    <p style={{ color: "var(--text-secondary)", lineHeight: 1.8, maxWidth: 650 }}>
+                      Providing strategic guidance and academic oversight, our faculty supervisor ensures that the project maintains the highest standards of technical excellence and innovative design.
+                    </p>
+                  </div>
+                </div>
+             </GlassPanel>
+          </div>
+        </motion.div>
 
-      {/* ── Team ── */}
-      <h2 style={{
-        fontFamily: "var(--font-heading)", fontSize: "1.6rem", fontWeight: 800,
-        color: "var(--text-primary)", marginBottom: "var(--space-lg)",
-      }}>👥 Built by</h2>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: "var(--space-md)", marginBottom: "var(--space-2xl)" }}>
-        {teamMembers.map((m) => (
-          <GlassPanel key={m.name} radius="lg" padding="var(--space-lg)" style={{ display: "flex", alignItems: "center", gap: "var(--space-md)" }}>
-            <div style={{
-              width: 48, height: 48, borderRadius: "var(--radius-md)", background: "var(--aurora-gradient)",
-              display: "flex", alignItems: "center", justifyContent: "center",
-              fontSize: "1.6rem", flexShrink: 0,
-            }}>{m.emoji}</div>
-            <div>
-              <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--text-primary)" }}>{m.name}</div>
-              <div style={{ fontSize: "0.8rem", color: "var(--text-muted)" }}>{m.role}</div>
+        {/* Tier 2: Project Leader (Abu Sayem) */}
+        <motion.div variants={itemVariants}>
+          <div style={{ textAlign: "center", marginBottom: "var(--space-xl)" }}>
+             <h2 style={{ fontSize: "0.85rem", fontWeight: 800, color: "var(--aurora-purple)", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "var(--space-md)" }}>
+               Technical Architect
+             </h2>
+             <GlassPanel radius="2xl" style={{ 
+               maxWidth: 900, margin: "0 auto", overflow: "hidden", 
+               background: "rgba(102, 126, 234, 0.04)", border: "1px solid rgba(102, 126, 234, 0.2)" 
+             }}>
+                <div className="leader-flex">
+                  <div className="leader-image-side">
+                    <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "white" }}>
+                      <Code size={120} style={{ opacity: 0.3 }} />
+                      <div style={{ position: "absolute", bottom: 20, left: 20 }}>
+                        <h4 style={{ fontSize: "1.5rem", fontWeight: 900, marginBottom: 0 }}>ABU SAYEM</h4>
+                        <p style={{ fontSize: "0.9rem", fontWeight: 700, opacity: 0.8 }}>FOUNDER & LEAD DEVELOPER</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="leader-content-side">
+                    <div style={{ 
+                      width: 44, height: 44, borderRadius: 12, background: "white", display: "flex", alignItems: "center", 
+                      justifyContent: "center", boxShadow: "0 8px 20px rgba(0,0,0,0.05)", marginBottom: "var(--space-lg)" 
+                    }}>
+                      <Layout size={24} color="var(--aurora-indigo)" />
+                    </div>
+                    <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "1.75rem", fontWeight: 900, marginBottom: "var(--space-md)" }}>
+                      Full Stack Development Lead
+                    </h3>
+                    <p style={{ color: "var(--text-secondary)", lineHeight: 1.8, fontSize: "1.05rem" }}>
+                      I am Abu Sayem, the lead visionary and full-stack architect behind StarRate. My mission was to merge complex data structures with a premium, motion-driven user interface. I engineered the core authentication, database schemas, and the unique aurora-glass design system used throughout this platform.
+                    </p>
+                    <div style={{ display: "flex", gap: 12, marginTop: "var(--space-xl)" }}>
+                      <span style={{ fontSize: "0.8rem", fontWeight: 800, padding: "6px 14px", borderRadius: 10, background: "rgba(0,0,0,0.05)" }}>NEXT.JS 14</span>
+                      <span style={{ fontSize: "0.8rem", fontWeight: 800, padding: "6px 14px", borderRadius: 10, background: "rgba(0,0,0,0.05)" }}>TYPESCRIPT</span>
+                      <span style={{ fontSize: "0.8rem", fontWeight: 800, padding: "6px 14px", borderRadius: 10, background: "rgba(0,0,0,0.05)" }}>PRISMA</span>
+                    </div>
+                  </div>
+                </div>
+             </GlassPanel>
+          </div>
+        </motion.div>
+
+        {/* Tier 3: Other 4 team members */}
+        <motion.div variants={itemVariants}>
+          <div style={{ textAlign: "center" }}>
+            <h2 style={{ fontSize: "0.85rem", fontWeight: 800, color: "var(--text-muted)", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "var(--space-xl)" }}>
+               Project Engineering Team
+            </h2>
+            <div style={{ 
+              display: "grid", 
+              gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", 
+              gap: "var(--space-lg)" 
+            }}>
+              {teamMembers.map((member, i) => (
+                <GlassPanel key={i} radius="xl" padding="var(--space-xl)" style={{ textAlign: "left" }}>
+                  <div style={{ 
+                    width: 54, height: 54, borderRadius: 16, background: "rgba(0,0,0,0.04)", 
+                    display: "flex", alignItems: "center", justifyContent: "center", color: "var(--aurora-indigo)",
+                    marginBottom: "var(--space-lg)"
+                  }}>
+                    {member.icon}
+                  </div>
+                  <h4 style={{ fontWeight: 900, fontSize: "1.1rem", marginBottom: 2 }}>{member.name}</h4>
+                  <p style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--aurora-indigo)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "var(--space-md)" }}>
+                    {member.role}
+                  </p>
+                  <p style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.6 }}>
+                    {member.info}
+                  </p>
+                </GlassPanel>
+              ))}
             </div>
-          </GlassPanel>
-        ))}
-      </div>
+          </div>
+        </motion.div>
 
-      {/* ── Tech Stack ── */}
-      <GlassPanel radius="xl" padding="var(--space-xl)">
-        <h2 style={{ fontFamily: "var(--font-heading)", fontSize: "1.2rem", fontWeight: 800, color: "var(--text-primary)", marginBottom: "var(--space-md)" }}>
-          🛠 Built With
-        </h2>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--space-sm)" }}>
-          {["Next.js 14", "TypeScript", "Motion v12", "Auth.js v5", "Prisma 5", "SQLite", "Aurora Glass CSS"].map((tech) => (
-            <span key={tech} style={{
-              padding: "5px 14px", borderRadius: "var(--radius-pill)",
-              background: "rgba(102,126,234,0.08)", border: "1px solid rgba(102,126,234,0.15)",
-              color: "var(--aurora-indigo)", fontSize: "0.80rem", fontWeight: 600,
-            }}>{tech}</span>
-          ))}
-        </div>
-      </GlassPanel>
+        {/* ── Final Footer Callout ── */}
+        <motion.div variants={itemVariants} style={{ marginTop: "var(--space-2xl)", textAlign: "center" }}>
+           <GlassPanel radius="2xl" padding="var(--space-md) var(--space-xl)" style={{ display: "inline-flex", alignItems: "center", gap: 8, border: "1px solid rgba(102, 126, 234, 0.15)" }}>
+             <Sparkles size={18} color="var(--aurora-indigo)" />
+             <span style={{ fontWeight: 700, fontSize: "0.9rem", color: "var(--text-secondary)" }}>StarRate Production Terminal v2.0 - 2026</span>
+           </GlassPanel>
+        </motion.div>
+
+      </motion.div>
     </div>
   );
 }
