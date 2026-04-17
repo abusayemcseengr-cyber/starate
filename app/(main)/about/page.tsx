@@ -130,16 +130,23 @@ export default function AboutPage() {
                     position: "relative", overflow: "hidden", border: "4px solid white", boxShadow: "0 10px 30px rgba(0,0,0,0.05)",
                     flexShrink: 0
                   }}>
-                    <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--aurora-gradient)", color: "white" }}>
-                      <Command size={60} />
-                    </div>
+                    <Image 
+                      src="https://i.postimg.cc/tJBKq1k0/f3.png" 
+                      alt="Md Akhtaruzzaman" 
+                      fill
+                      unoptimized
+                      style={{ objectFit: "cover" }} 
+                    />
                   </div>
                   <div style={{ flex: 1 }}>
-                    <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "2.2rem", fontWeight: 900, marginBottom: 4 }}>
-                      Course Teacher Name
+                    <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "2rem", fontWeight: 900, marginBottom: 4 }}>
+                      Md Akhtaruzzaman
                     </h3>
-                    <p style={{ color: "var(--aurora-indigo)", fontWeight: 700, fontSize: "1.1rem", marginBottom: "var(--space-md)" }}>
-                      Faculty Supervisor & Project Guide
+                    <p style={{ color: "var(--aurora-indigo)", fontWeight: 800, fontSize: "1.05rem", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "4px" }}>
+                      Course Teacher & Supervisor
+                    </p>
+                    <p style={{ color: "var(--text-secondary)", fontWeight: 600, fontSize: "0.95rem", marginBottom: "var(--space-md)" }}>
+                      Department of CSE, Daffodil International University
                     </p>
                     <p style={{ color: "var(--text-secondary)", lineHeight: 1.8, maxWidth: 650 }}>
                       Providing strategic guidance and academic oversight, our faculty supervisor ensures that the project maintains the highest standards of technical excellence and innovative design.
