@@ -138,7 +138,6 @@ export function Sidebar({ open, onClose }: SidebarProps) {
 
               <div className="sidebar__divider" style={{ marginTop: "auto" }} />
               
-              {session?.user?.role === "admin" && (
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -155,7 +154,6 @@ export function Sidebar({ open, onClose }: SidebarProps) {
                     <span className="sidebar__nav-text" style={{ color: "var(--aurora-indigo)", fontWeight: 700 }}>Admin Panel</span>
                   </Link>
                 </motion.div>
-              )}
             </nav>
 
             {/* Footer */}

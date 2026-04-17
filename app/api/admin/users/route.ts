@@ -2,14 +2,14 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 
-async function checkAdmin() {
-  const session = await auth();
-  return session?.user?.role === "admin";
+async function checkAdmin(req: Request) {
+  const pwd = req.headers.get("x-admin-password");
+  return pwd === "557855";
 }
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
-    if (!(await checkAdmin())) {
+    if (!(await checkAdmin(req))) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
@@ -35,7 +35,7 @@ export async function GET() {
 
 export async function PATCH(req: Request) {
   try {
-    if (!(await checkAdmin())) {
+    if (!(await checkAdmin(req))) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 

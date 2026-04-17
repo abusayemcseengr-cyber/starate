@@ -25,10 +25,12 @@ type User = {
 };
 
 export default function AdminDashboard() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [passwordInput, setPasswordInput] = useState("");
   const [activeTab, setActiveTab] = useState<"celebrities" | "users">("celebrities");
   const [celebrities, setCelebrities] = useState<Celebrity[]>([]);
   const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   
   // Form State
@@ -42,12 +44,17 @@ export default function AdminDashboard() {
   const [submitting, setSubmitting] = useState(false);
   const [toast, setToast] = useState("");
 
+  const getHeaders = () => ({
+    "Content-Type": "application/json",
+    "x-admin-password": sessionStorage.getItem("adminPassword") || "",
+  });
+
   const fetchData = async () => {
     setLoading(true);
     try {
       const [celRes, userRes] = await Promise.all([
-        fetch("/api/admin/celebrities"),
-        fetch("/api/admin/users")
+        fetch("/api/admin/celebrities", { headers: getHeaders() }),
+        fetch("/api/admin/users", { headers: getHeaders() })
       ]);
       if (celRes.ok) setCelebrities(await celRes.json());
       if (userRes.ok) setUsers(await userRes.json());
@@ -57,8 +64,26 @@ export default function AdminDashboard() {
   };
 
   useEffect(() => {
-    fetchData();
+    if (sessionStorage.getItem("adminPassword") === "557855") {
+      setIsAuthenticated(true);
+    }
   }, []);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchData();
+    }
+  }, [isAuthenticated]);
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (passwordInput === "557855") {
+      sessionStorage.setItem("adminPassword", passwordInput);
+      setIsAuthenticated(true);
+    } else {
+      showToast("Incorrect PIN");
+    }
+  };
 
   const openModal = (cel?: Celebrity) => {
     if (cel) {
@@ -96,7 +121,7 @@ export default function AdminDashboard() {
     try {
       const res = await fetch("/api/admin/celebrities", {
         method,
-        headers: { "Content-Type": "application/json" },
+        headers: getHeaders(),
         body: JSON.stringify(payload),
       });
 
@@ -115,7 +140,7 @@ export default function AdminDashboard() {
   const handleDelete = async (id: string, name: string) => {
     if (!window.confirm(`Are you sure you want to permanently delete ${name}?`)) return;
     try {
-      const res = await fetch(`/api/admin/celebrities?id=${id}`, { method: "DELETE" });
+      const res = await fetch(`/api/admin/celebrities?id=${id}`, { method: "DELETE", headers: getHeaders() });
       if (res.ok) { await fetchData(); showToast(`${name} deleted.`); }
     } catch { showToast("Error deleting celebrity"); }
   };
@@ -125,13 +150,26 @@ export default function AdminDashboard() {
     try {
       const res = await fetch("/api/admin/users", {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: getHeaders(),
         body: JSON.stringify({ id: userId, role: newRole }),
       });
       if (res.ok) { await fetchData(); showToast("User role updated!"); }
       else { const err = await res.json(); showToast(err.error || "Update failed"); }
     } catch { showToast("Error updating user"); }
   };
+
+  if (!isAuthenticated) {
+    return (
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "calc(100vh - var(--navbar-height))" }}>
+         <form onSubmit={handleLogin} style={{ background: "rgba(255,255,255,0.7)", backdropFilter: "blur(20px)", padding: 40, borderRadius: 24, display: "flex", flexDirection: "column", gap: 16 }}>
+           <h2 style={{ fontFamily: "var(--font-heading)", fontSize: "2rem", fontWeight: 900, textAlign: "center" }}>Admin Restrict</h2>
+           <input type="password" placeholder="Enter PIN" value={passwordInput} onChange={(e) => setPasswordInput(e.target.value)} style={{ padding: 12, borderRadius: 8, border: "1px solid rgba(0,0,0,0.1)" }} />
+           <button type="submit" style={{ padding: 12, borderRadius: 8, border: "none", background: "var(--aurora-gradient)", color: "white", fontWeight: 700, cursor: "pointer" }}>Access Admin</button>
+         </form>
+         {toast && <div style={{position: "fixed", top: 20, right: 20, background: "rgba(255,0,0,0.8)", color: "white", padding: 10, borderRadius: 8}}>{toast}</div>}
+      </div>
+    );
+  }
 
   if (loading && celebrities.length === 0) {
     return <div style={{ padding: "var(--space-2xl)", textAlign: "center" }}>Loading Admin Tools...</div>;

@@ -2,18 +2,15 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 
-// Helper to check admin role
-async function checkAdmin() {
-  const session = await auth();
-  if (!session?.user || session.user.role !== "admin") {
-    return false;
-  }
-  return true;
+// Helper to check admin password
+async function checkAdmin(req: Request) {
+  const pwd = req.headers.get("x-admin-password");
+  return pwd === "557855";
 }
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
-    const isAdmin = await checkAdmin();
+    const isAdmin = await checkAdmin(req);
     if (!isAdmin) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
     const celebrities = await prisma.celebrity.findMany({
@@ -27,7 +24,7 @@ export async function GET() {
 
 export async function POST(req: Request) {
   try {
-    const isAdmin = await checkAdmin();
+    const isAdmin = await checkAdmin(req);
     if (!isAdmin) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
     const body = await req.json();
@@ -49,7 +46,7 @@ export async function POST(req: Request) {
 
 export async function PUT(req: Request) {
   try {
-    const isAdmin = await checkAdmin();
+    const isAdmin = await checkAdmin(req);
     if (!isAdmin) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
     const body = await req.json();
@@ -70,7 +67,7 @@ export async function PUT(req: Request) {
 
 export async function DELETE(req: Request) {
   try {
-    const isAdmin = await checkAdmin();
+    const isAdmin = await checkAdmin(req);
     if (!isAdmin) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
     const { searchParams } = new URL(req.url);
