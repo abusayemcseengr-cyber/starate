@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { motion, AnimatePresence } from "motion";
+import { motion, AnimatePresence } from "motion/react";
 import { CelebrityCard, type Celebrity } from "./CelebrityCard";
 import { RatingRing } from "./RatingRing";
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "motion";
+import { motion } from "motion/react";
 import { GlassPanel } from "@/components/ui/GlassPanel";
 
 interface Stats {

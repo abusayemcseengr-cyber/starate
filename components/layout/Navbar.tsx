@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { AnimatePresence } from "motion";
+import { AnimatePresence } from "motion/react";
 import { ProfileDropdown } from "./ProfileDropdown";
 
 interface NavbarProps {

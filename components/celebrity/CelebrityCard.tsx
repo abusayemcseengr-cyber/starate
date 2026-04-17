@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
-import { motion, useMotionValue, useSpring, useTransform } from "motion";
+import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 
 export interface Celebrity {
   id: string;
