@@ -34,9 +34,9 @@ model Celebrity {
 model Rating {
   id            String    @id @default(cuid())
   score         Int
-  user          User      @relation(fields: [userId], references: [id])
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId        String
-  celebrity     Celebrity @relation(fields: [celebrityId], references: [id])
+  celebrity     Celebrity @relation(fields: [celebrityId], references: [id], onDelete: Cascade)
   celebrityId   String
   createdAt     DateTime  @default(now())
 
