@@ -16,10 +16,10 @@ import {
 
 // Team Members Mapping
 const teamMembers = [
-  { name: "Team Member 1", role: "Frontend Developer", info: "Focused on creating fluid CSS animations and responsive layouts.", icon: <Sparkles size={20} /> },
-  { name: "Team Member 2", role: "Backend Architect", info: "Managing database integrity and high-performance API endpoints.", icon: <Cpu size={20} /> },
-  { name: "Team Member 3", role: "UI/UX Designer", info: "Ensures the StarRate experience is intuitive and visually stunning.", icon: <Monitor size={20} /> },
-  { name: "Team Member 4", role: "QA Engineer", info: "Rigorous testing to maintain platform stability and performance.", icon: <ShieldCheck size={20} /> },
+  { name: "Sabirul Islam Kawser", role: "Project Engineering", info: "Focused on creating fluid CSS animations and responsive layouts.", image: "https://i.postimg.cc/MZsZKXvc/484090787-2059821037865134-3386856517630383315-n.jpg" },
+  { name: "Bijoy Sarker", role: "Project Engineering", info: "Managing database integrity and high-performance API endpoints.", image: "https://i.postimg.cc/5yGM5YCS/612922314-899779046347373-424048666164197175-n.jpg" },
+  { name: "Gourab Saha", role: "Project Engineering", info: "Ensures the StarRate experience is intuitive and visually stunning.", image: "https://i.postimg.cc/RqrDVcty/558906089-2057379381755943-7716747751140515589-n.jpg" },
+  { name: "Mehedi Hasan Rokon", role: "Project Engineering", info: "Rigorous testing to maintain platform stability and performance.", image: "https://i.postimg.cc/c4yWJY02/613800580-2235368270323279-288178105462231878-n.jpg" },
 ];
 
 export default function AboutPage() {
@@ -222,11 +222,17 @@ export default function AboutPage() {
               {teamMembers.map((member, i) => (
                 <GlassPanel key={i} radius="xl" padding="var(--space-xl)" style={{ textAlign: "left" }}>
                   <div style={{ 
-                    width: 54, height: 54, borderRadius: 16, background: "rgba(0,0,0,0.04)", 
-                    display: "flex", alignItems: "center", justifyContent: "center", color: "var(--aurora-indigo)",
-                    marginBottom: "var(--space-lg)"
+                    width: 64, height: 64, borderRadius: 16, background: "rgba(0,0,0,0.04)", 
+                    position: "relative", overflow: "hidden", border: "2px solid rgba(102, 126, 234, 0.2)",
+                    marginBottom: "var(--space-lg)", flexShrink: 0
                   }}>
-                    {member.icon}
+                    <Image 
+                      src={member.image} 
+                      alt={member.name} 
+                      fill
+                      unoptimized
+                      style={{ objectFit: "cover" }} 
+                    />
                   </div>
                   <h4 style={{ fontWeight: 900, fontSize: "1.1rem", marginBottom: 2 }}>{member.name}</h4>
                   <p style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--aurora-indigo)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "var(--space-md)" }}>
