@@ -247,8 +247,29 @@ export default function AboutPage() {
           </div>
         </motion.div>
 
+        {/* Tier 4: Tech Stack */}
+        <motion.div variants={itemVariants}>
+          <div style={{ textAlign: "center", marginBottom: "var(--space-2xl)", marginTop: "var(--space-2xl)" }}>
+             <h2 style={{ fontSize: "0.85rem", fontWeight: 800, color: "var(--aurora-indigo)", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "var(--space-md)" }}>
+               Platform Architecture
+             </h2>
+             <GlassPanel radius="2xl" padding="var(--space-2xl)" style={{ maxWidth: 900, margin: "0 auto" }}>
+               <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "var(--space-md)" }}>
+                 {["Next.js 14", "React 18", "TypeScript", "PostgreSQL", "Prisma ORM", "Auth.js v5", "Framer Motion", "Lucide Icons", "Aurora Glass UI"].map((tech) => (
+                   <span key={tech} style={{
+                     padding: "8px 18px", borderRadius: "100px",
+                     background: "rgba(102,126,234,0.08)", border: "1px solid rgba(102,126,234,0.15)",
+                     color: "var(--aurora-indigo)", fontSize: "0.9rem", fontWeight: 800,
+                     letterSpacing: "0.03em"
+                   }}>{tech}</span>
+                 ))}
+               </div>
+             </GlassPanel>
+          </div>
+        </motion.div>
+
         {/* ── Final Footer Callout ── */}
-        <motion.div variants={itemVariants} style={{ marginTop: "var(--space-2xl)", textAlign: "center" }}>
+        <motion.div variants={itemVariants} style={{ marginTop: "var(--space-md)", textAlign: "center" }}>
            <GlassPanel radius="2xl" padding="var(--space-md) var(--space-xl)" style={{ display: "inline-flex", alignItems: "center", gap: 8, border: "1px solid rgba(102, 126, 234, 0.15)" }}>
              <Sparkles size={18} color="var(--aurora-indigo)" />
              <span style={{ fontWeight: 700, fontSize: "0.9rem", color: "var(--text-secondary)" }}>StarRate Production Terminal v2.0 - 2026</span>
