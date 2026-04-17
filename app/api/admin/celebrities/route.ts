@@ -20,7 +20,7 @@ export async function GET() {
       orderBy: { name: "asc" },
     });
     return NextResponse.json(celebrities);
-  } catch (err) {
+  } catch {
     return NextResponse.json({ error: "Internal Error" }, { status: 500 });
   }
 }
@@ -42,7 +42,7 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json(newCel, { status: 201 });
-  } catch (err) {
+  } catch {
     return NextResponse.json({ error: "Internal Error" }, { status: 500 });
   }
 }
@@ -63,7 +63,7 @@ export async function PUT(req: Request) {
     });
 
     return NextResponse.json(updated);
-  } catch (err) {
+  } catch {
     return NextResponse.json({ error: "Internal Error" }, { status: 500 });
   }
 }
@@ -88,7 +88,7 @@ export async function DELETE(req: Request) {
     });
 
     return NextResponse.json({ success: true });
-  } catch (err) {
+  } catch {
     return NextResponse.json({ error: "Internal Error" }, { status: 500 });
   }
 }
